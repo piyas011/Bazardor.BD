@@ -10,10 +10,13 @@ import LoadingSkeleton from "./LoadingSkeleton";
 const Header = () => {
   return (
     <header className="w-full bg-white shadow-sm">
-      <div className="mx-auto flex container  flex-col gap-4  py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <div className="mx-auto flex container  flex-col gap-4  py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8  ">
         {/* Logo and Website Info */}
         <div className="flex items-center gap-3 ">
-          <Link href="/" className=" p-2 rounded-2xl">
+          <Link
+            href="/"
+            className=" p-2 rounded-2xl flex justify-center items-center gap-2"
+          >
             <Image
               className="rounded-lgp-1 object-contain "
               src="/logo.png"
@@ -22,20 +25,20 @@ const Header = () => {
               height={44}
               priority
             />
-          </Link>
 
-          <div className="min-w-0">
-            <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-              বাজার দর
-              <span className="ml-1 text-green-600">.BD</span>
-            </h1>
+            <div className="min-w-0">
+              <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                বাজার দর
+                <span className="ml-1 text-green-600">.BD</span>
+              </h1>
 
-            <div className="mt-1 text-xs text-gray-500 sm:text-sm">
-              <Suspense fallback={<div>লোড হচ্ছে...</div>}>
-                <Date />
-              </Suspense>
+              <div className="mt-1 text-xs text-gray-500 sm:text-sm">
+                <Suspense fallback={<div>লোড হচ্ছে...</div>}>
+                  <Date />
+                </Suspense>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Authentication Buttons */}
@@ -67,7 +70,8 @@ const Header = () => {
           <Categories />
         </Suspense>
       </div>
-      <div className="border-t border-gray-200 mt-2">
+
+      <div className="border-t border-gray-200 mt-2 ">
         <MarqueeText direction="right" pauseOnHover duration={10}>
           <Suspense
             fallback={

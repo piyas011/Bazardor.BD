@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Banner = () => {
   return (
-    <section className="overflow-hidden rounded-2xl bg-gradient-to-br from-green-50 via-white to-emerald-100">
+    <section className="overflow-hidden rounded-2xl bg-linear-to-br from-green-50 via-white to-emerald-100">
       <div className="mx-auto grid max-w-7xl items-center gap-4 px-4 py-5 sm:grid-cols-2 sm:gap-6 sm:px-6 sm:py-7 lg:gap-10 lg:px-10 lg:py-8">
         {/* Hero Content */}
         <div className="order-2 sm:order-1">
@@ -32,16 +32,12 @@ const Banner = () => {
               সব পণ্য দেখুন
               <span aria-hidden="true">→</span>
             </Link>
-
-            <span className="text-xs text-gray-500 sm:text-sm">
-              সহজেই বাজারদর তুলনা করুন
-            </span>
           </div>
         </div>
 
         {/* Hero Image */}
         <div className="order-1 flex items-center justify-center sm:order-2">
-          <div className="relative w-full max-w-[190px] sm:max-w-[250px] lg:max-w-[320px]">
+          <div className="relative w-full max-w-47.5 sm:max-w-62.5 lg:max-w-[320px]">
             <div className="absolute inset-5 rounded-full bg-green-300/30 blur-2xl" />
 
             <Image
