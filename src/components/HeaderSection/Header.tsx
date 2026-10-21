@@ -5,6 +5,7 @@ import Categories from "./Categories";
 import MarqueeText from "react-marquee-text";
 import Marquee from "./Marquee";
 import { Suspense } from "react";
+import LoadingSkeleton from "./LoadingSkeleton";
 
 const Header = () => {
   return (
@@ -55,16 +56,30 @@ const Header = () => {
         </div>
       </div>
       {/* All Categories: */}
-      <Suspense fallback={<div>লোড হচ্ছে...</div>}>
-        <div className="container mx-auto border-t border-gray-100">
+      <div className="container mx-auto border-t border-gray-100">
+        <Suspense
+          fallback={
+            <div>
+              <LoadingSkeleton />
+            </div>
+          }
+        >
           <Categories />
-        </div>
-        <div className="border-t border-gray-200 mt-2">
-          <MarqueeText direction="right" pauseOnHover duration={20}>
+        </Suspense>
+      </div>
+      <div className="border-t border-gray-200 mt-2">
+        <MarqueeText direction="right" pauseOnHover duration={10}>
+          <Suspense
+            fallback={
+              <div>
+                <LoadingSkeleton />
+              </div>
+            }
+          >
             <Marquee />
-          </MarqueeText>
-        </div>
-      </Suspense>
+          </Suspense>
+        </MarqueeText>
+      </div>
     </header>
   );
 };
