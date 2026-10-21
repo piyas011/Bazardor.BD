@@ -138,7 +138,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-slate-400">
-            © {new Date().getFullYear()} bazarDor.BD — সর্বস্বত্ব সংরক্ষিত।
+            © 2026 bazarDor.BD — সর্বস্বত্ব সংরক্ষিত।
           </p>
 
           <p className="text-xs text-slate-500">

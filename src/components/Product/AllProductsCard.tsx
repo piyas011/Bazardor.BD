@@ -40,8 +40,17 @@ const AllProductsCard = ({ product }: { product: Product }) => {
           </div>
 
           {/* Price Change */}
-          <div className="flex shrink-0 items-center gap-1.5 rounded-lg bg-red-50 px-2.5 py-2 text-sm font-bold text-red-600">
-            <span aria-hidden="true">▲</span>
+
+          <div
+            className={`flex shrink-0 items-center gap-1.5 rounded-lg bg-red-50 px-2.5 py-2 text-sm font-bold ${product.change.dir === "up" ? "text-red-600" : "text-green-600"} `}
+          >
+            <span aria-hidden="true">
+              {product.change.dir === "up"
+                ? "▲"
+                : product.change.dir === "down"
+                  ? "▼"
+                  : "-"}
+            </span>
             <span>{product.change.pct}%</span>
           </div>
         </div>
