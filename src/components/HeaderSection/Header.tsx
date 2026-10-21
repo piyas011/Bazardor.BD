@@ -4,6 +4,7 @@ import Date from "./Date";
 import Categories from "./Categories";
 import MarqueeText from "react-marquee-text";
 import Marquee from "./Marquee";
+import { Suspense } from "react";
 
 const Header = () => {
   return (
@@ -29,7 +30,9 @@ const Header = () => {
             </h1>
 
             <div className="mt-1 text-xs text-gray-500 sm:text-sm">
-              <Date />
+              <Suspense fallback={<div>লোড হচ্ছে...</div>}>
+                <Date />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -52,14 +55,16 @@ const Header = () => {
         </div>
       </div>
       {/* All Categories: */}
-      <div className="container mx-auto border-t border-gray-100">
-        <Categories />
-      </div>
-      <div className="border-t border-gray-200 mt-2">
-        <MarqueeText direction="right" pauseOnHover duration={20}>
-          <Marquee />
-        </MarqueeText>
-      </div>
+      <Suspense fallback={<div>লোড হচ্ছে...</div>}>
+        <div className="container mx-auto border-t border-gray-100">
+          <Categories />
+        </div>
+        <div className="border-t border-gray-200 mt-2">
+          <MarqueeText direction="right" pauseOnHover duration={20}>
+            <Marquee />
+          </MarqueeText>
+        </div>
+      </Suspense>
     </header>
   );
 };
