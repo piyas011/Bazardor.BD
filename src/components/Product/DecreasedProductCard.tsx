@@ -1,7 +1,6 @@
 import { Product } from "@/types/Product";
 
 const DecreasedProductCard = ({ product }: { product: Product }) => {
-  console.log(product);
   return (
     <article className="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-red-100 hover:shadow-md sm:p-5 ">
       {/* Product Info */}
