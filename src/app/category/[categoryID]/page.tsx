@@ -9,6 +9,7 @@ const Category = async ({
   const { categoryID } = await params;
   console.log("category section", categoryID);
 
+  ////////////////////////
   const res = await fetch(
     `https://openapi.programming-hero.com/api/bazardor/products?category=${categoryID}`,
   );

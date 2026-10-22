@@ -1,8 +1,12 @@
 import { Product } from "@/types/Product";
+import Link from "next/link";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <article className="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-red-100 hover:shadow-md sm:p-5 ">
+    <Link
+      href={`/products/${product.id}`}
+      className="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-red-100 hover:shadow-md sm:p-5 "
+    >
       {/* Product Info */}
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-2xl transition-colors group-hover:bg-green-100">
@@ -51,7 +55,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           {product.yesterday} টাকা
         </span>
       </div>
-    </article>
+    </Link>
   );
 };
 

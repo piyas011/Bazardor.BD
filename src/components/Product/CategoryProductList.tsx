@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Product } from "@/types/Product";
 import ProductSorting from "./ProductSorting";
 import type { ProductSortOrder } from "./ProductSorting";
+import Link from "next/link";
 
 const CategoryProductList = ({ products }: { products: Product[] }) => {
   const [sortOrder, setSortOrder] = useState<ProductSortOrder>("default");
@@ -53,7 +54,8 @@ const CategoryProductList = ({ products }: { products: Product[] }) => {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {sortedProducts.map((product) => (
-          <div
+          <Link
+            href={`/products/${product.id}`}
             key={product.id}
             className="group rounded-2xl border border-slate-200 bg-white p-4 transition duration-200 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-900/5 sm:p-5"
           >
@@ -130,7 +132,7 @@ const CategoryProductList = ({ products }: { products: Product[] }) => {
                     : "দামের কোনো পরিবর্তন নেই"}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>
