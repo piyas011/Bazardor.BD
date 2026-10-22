@@ -5,6 +5,11 @@ import Categories from "./Categories";
 import MarqueeText from "react-marquee-text";
 import Marquee from "./Marquee";
 import { Suspense } from "react";
+import {
+  CategoriesSkeleton,
+  DateSkeleton,
+  MarqueeSkeleton,
+} from "@/components/Skeletons/LoadingSkeletons";
 
 const Header = () => {
   return (
@@ -33,7 +38,7 @@ const Header = () => {
                 </h1>
 
                 <div className="mt-1 text-xs text-gray-500 sm:text-sm">
-                  <Suspense fallback={<div>লোড হচ্ছে...</div>}>
+                  <Suspense fallback={<DateSkeleton />}>
                     <Date />
                   </Suspense>
                 </div>
@@ -61,22 +66,7 @@ const Header = () => {
 
         {/* All Categories: */}
         <div className="container mx-auto border-t border-gray-100">
-          <Suspense
-            fallback={
-              <div
-                role="status"
-                aria-label="ক্যাটাগরি লোড হচ্ছে"
-                className="flex gap-3 overflow-hidden py-2"
-              >
-                {Array.from({ length: 5 }, (_, index) => (
-                  <div
-                    key={index}
-                    className="h-11 w-28 shrink-0 animate-pulse rounded-xl bg-gray-100"
-                  />
-                ))}
-              </div>
-            }
-          >
+          <Suspense fallback={<CategoriesSkeleton />}>
             <Categories />
           </Suspense>
         </div>
@@ -84,22 +74,7 @@ const Header = () => {
 
       <div className="border-t border-gray-200 mt-2 ">
         <MarqueeText direction="right" pauseOnHover duration={10}>
-          <Suspense
-            fallback={
-              <div
-                role="status"
-                aria-label="বাজারদরের তথ্য লোড হচ্ছে"
-                className="flex gap-4 overflow-hidden py-3"
-              >
-                {Array.from({ length: 4 }, (_, index) => (
-                  <div
-                    key={index}
-                    className="h-10 w-52 shrink-0 animate-pulse rounded-lg bg-gray-100"
-                  />
-                ))}
-              </div>
-            }
-          >
+          <Suspense fallback={<MarqueeSkeleton />}>
             <Marquee />
           </Suspense>
         </MarqueeText>
