@@ -3,7 +3,7 @@ import ProductCard from "../Product/ProductCard";
 
 const PriceIncreasedToday = ({ products }: { products: Product[] }) => {
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 mt-20">
       <h2 className="mb-5 text-3xl font-bold">
         <span className="text-red-600">▲</span> আজ দাম বেড়েছে
       </h2>

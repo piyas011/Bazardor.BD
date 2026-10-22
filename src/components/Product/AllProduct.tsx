@@ -3,7 +3,7 @@ import AllProductsCard from "./AllProductsCard";
 
 const AllProduct = ({ products }: { products: Product[] }) => {
   return (
-    <div>
+    <section id="AllProduct" className="mt-30">
       <div>
         <h2 className="text-4xl py-4 font-bold">সব পণ্য</h2>
         <p className="py-2">মোট {products.length}টি পণ্য দেখানো হচ্ছে</p>
@@ -13,7 +13,7 @@ const AllProduct = ({ products }: { products: Product[] }) => {
           <AllProductsCard key={product.id} product={product} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -3,7 +3,7 @@ import DecreasedProductCard from "../Product/DecreasedProductCard";
 
 const PriceDecreasedToday = ({ products }: { products: Product[] }) => {
   return (
-    <div>
+    <div className="mt-32">
       <h2 className="text-3xl my-6">
         <span className="text-green-600">▼</span> আজ দাম কমেছে
       </h2>

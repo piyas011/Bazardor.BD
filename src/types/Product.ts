@@ -7,7 +7,7 @@ export interface Product {
   categoryIcon: string;
   unit: string;
   image: string;
-  today: number;
+  today: number | string;
   yesterday: number;
   lastWeek: number;
   lastMonth: number;

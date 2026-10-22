@@ -1,37 +1,49 @@
+import LoadingSkeleton from "@/components/HeaderSection/LoadingSkeleton";
+
 export default function Loading() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4">
-      {/* Logo */}
-      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-green-100 text-4xl shadow-sm">
-        🛒
+    <div
+      role="status"
+      aria-label="বাজারদরের তথ্য লোড হচ্ছে"
+      className="container mx-auto space-y-8 px-4 py-6"
+    >
+      <div className="grid min-h-56 animate-pulse items-center gap-6 rounded-2xl bg-green-50 p-6 sm:grid-cols-2 sm:p-10">
+        <div className="space-y-4">
+          <div className="h-4 w-28 rounded bg-green-100" />
+          <div className="h-9 w-3/4 rounded bg-gray-200" />
+          <div className="h-4 w-full rounded bg-gray-100" />
+          <div className="h-4 w-5/6 rounded bg-gray-100" />
+        </div>
+        <div className="mx-auto h-36 w-36 rounded-full bg-green-100" />
       </div>
 
-      {/* Website Name */}
-      <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-        বাজার দর<span className="text-green-600">.BD</span>
-      </h1>
+      {["আজ দাম বেড়েছে", "আজ দাম কমেছে"].map((title) => (
+        <section key={title} className="space-y-5">
+          <h2 className="text-2xl font-bold text-gray-400">{title}</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+            {Array.from({ length: 3 }, (_, index) => (
+              <div
+                key={index}
+                className="h-36 animate-pulse rounded-xl border border-gray-100 bg-white p-4"
+              >
+                <div className="mb-4 h-5 w-2/3 rounded bg-gray-100" />
+                <div className="mb-3 h-7 w-1/3 rounded bg-gray-200" />
+                <div className="h-4 w-1/2 rounded bg-gray-100" />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
 
-      <p className="mt-2 text-center text-sm text-gray-500">
-        বাংলাদেশের নিত্যপ্রয়োজনীয় পণ্যের দৈনিক বাজারদর
-      </p>
+      <section className="space-y-3">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-400">সব পণ্য</h2>
+          <div className="mt-2 h-4 w-40 animate-pulse rounded bg-gray-100" />
+        </div>
+        <LoadingSkeleton />
+      </section>
 
-      {/* Loading Spinner */}
-      <div className="mt-10 flex flex-col items-center">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-green-100 border-t-green-600" />
-
-        <p className="mt-4 animate-pulse text-sm font-medium text-green-700">
-          তথ্য লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...
-        </p>
-      </div>
-
-      {/* Loading Skeleton */}
-      <div className="mt-10 w-full max-w-md space-y-3">
-        <div className="h-4 w-3/4 animate-pulse rounded-md bg-gray-200" />
-        <div className="h-4 w-full animate-pulse rounded-md bg-gray-200" />
-        <div className="h-4 w-5/6 animate-pulse rounded-md bg-gray-200" />
-      </div>
-
-      <p className="mt-12 text-xs text-gray-400">সঠিক বাজারদর, সবার অধিকার।</p>
-    </main>
+      <span className="sr-only">তথ্য লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন</span>
+    </div>
   );
 }

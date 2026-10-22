@@ -18,9 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${NotoSerifBengali} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <header>
-          <Header />
-        </header>
+        <Header />
         <main className="container mx-auto">{children}</main>
         <footer>
           <Footer />
