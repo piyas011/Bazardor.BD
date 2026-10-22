@@ -45,14 +45,14 @@ const Header = () => {
           <div className="flex w-full items-center gap-3 sm:w-auto">
             <Link
               className="flex-1 rounded-lg border border-green-600 px-4 py-2 text-center text-sm font-semibold text-green-700 transition-colors hover:bg-green-50 sm:flex-none"
-              href="/sign-in"
+              href="/login"
             >
               সাইন ইন
             </Link>
 
             <Link
               className="flex-1 rounded-lg bg-green-600 px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-green-700 sm:flex-none"
-              href="/sign-up"
+              href="/signup"
             >
               সাইন আপ করুন
             </Link>
