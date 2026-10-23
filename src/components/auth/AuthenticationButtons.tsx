@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const AuthenticationButtons = () => {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const userInfo = session?.user;
   const [isOpen, setIsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -47,7 +47,15 @@ const AuthenticationButtons = () => {
 
   return (
     <div>
-      {userInfo ? (
+      {isPending ? (
+        <div
+          role="status"
+          aria-label="লোড হচ্ছে"
+          className="flex h-10 w-10 items-center justify-center"
+        >
+          <span className="h-5 w-5 animate-spin rounded-full border-2 border-green-600 border-t-transparent" />
+        </div>
+      ) : userInfo ? (
         <div ref={profileRef} className="relative inline-block">
           <button
             type="button"
