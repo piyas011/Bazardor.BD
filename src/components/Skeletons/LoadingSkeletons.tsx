@@ -92,7 +92,7 @@ export function HomePageSkeleton() {
         <SkeletonBlock className="mx-auto h-36 w-36 rounded-full bg-emerald-100 sm:h-48 sm:w-48" />
       </section>
 
-      <section className="mt-20 space-y-5 px-4 py-6">
+      <section className="mt-12 space-y-5 px-4 py-6">
         <SkeletonBlock className="h-8 w-56 bg-slate-300" />
         <ProductGridSkeleton
           count={3}
@@ -100,7 +100,7 @@ export function HomePageSkeleton() {
         />
       </section>
 
-      <section className="mt-32 space-y-5">
+      <section className="mt-12 space-y-5 px-4">
         <SkeletonBlock className="h-8 w-56 bg-slate-300" />
         <ProductGridSkeleton
           count={3}
@@ -108,7 +108,7 @@ export function HomePageSkeleton() {
         />
       </section>
 
-      <section className="mt-30 space-y-4">
+      <section className="mt-12 space-y-4 px-4">
         <div className="space-y-2">
           <SkeletonBlock className="h-10 w-44 bg-slate-300" />
           <SkeletonBlock className="h-4 w-48 bg-slate-100" />

@@ -10,20 +10,20 @@ import {
   DateSkeleton,
   MarqueeSkeleton,
 } from "@/components/Skeletons/LoadingSkeletons";
+import AuthenticationButtons from "../auth/AuthenticationButtons";
 
 const Header = () => {
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
-        <div className="mx-auto flex container  flex-col gap-4  py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8  ">
-          {/* Logo and Website Info */}
-          <div className="flex items-center gap-3 ">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur supports-backdrop-filter:bg-white/90">
+        <div className="container mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center">
             <Link
               href="/"
-              className=" p-2 rounded-2xl flex justify-center items-center gap-2"
+              className="flex min-w-0 items-center gap-3 rounded-xl transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
             >
               <Image
-                className="rounded-lgp-1 object-contain "
+                className="shrink-0 rounded-xl bg-green-50 p-1 object-contain"
                 src="/logo.png"
                 alt="বাজার দর"
                 width={44}
@@ -32,12 +32,12 @@ const Header = () => {
               />
 
               <div className="min-w-0">
-                <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+                <h1 className="truncate text-lg font-bold tracking-tight text-gray-900 sm:text-2xl">
                   বাজার দর
                   <span className="ml-1 text-green-600">.BD</span>
                 </h1>
 
-                <div className="mt-1 text-xs text-gray-500 sm:text-sm">
+                <div className="mt-0.5 truncate text-xs text-gray-500 sm:text-sm">
                   <Suspense fallback={<DateSkeleton />}>
                     <Date />
                   </Suspense>
@@ -46,33 +46,21 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Authentication Buttons */}
-          <div className="flex w-full items-center gap-3 sm:w-auto">
-            <Link
-              className="flex-1 rounded-lg border border-green-600 px-4 py-2 text-center text-sm font-semibold text-green-700 transition-colors hover:bg-green-50 sm:flex-none"
-              href="/login"
-            >
-              সাইন ইন
-            </Link>
-
-            <Link
-              className="flex-1 rounded-lg bg-green-600 px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-green-700 sm:flex-none"
-              href="/signup"
-            >
-              সাইন আপ করুন
-            </Link>
+          <div className="relative flex w-full items-center justify-end sm:w-auto sm:shrink-0">
+            <AuthenticationButtons />
           </div>
         </div>
 
-        {/* All Categories: */}
-        <div className="container mx-auto border-t border-gray-100">
-          <Suspense fallback={<CategoriesSkeleton />}>
-            <Categories />
-          </Suspense>
+        <div className="border-t border-gray-100 bg-gray-50/60">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Suspense fallback={<CategoriesSkeleton />}>
+              <Categories />
+            </Suspense>
+          </div>
         </div>
       </header>
 
-      <div className="border-t border-gray-200 mt-2 ">
+      <div className="border-b border-green-100 bg-green-50/70 text-green-900">
         <MarqueeText direction="right" pauseOnHover duration={10}>
           <Suspense fallback={<MarqueeSkeleton />}>
             <Marquee />

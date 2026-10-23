@@ -206,12 +206,12 @@ const ProductDetailsPage = async ({
           {/*   details*/}
           <div>
             <div className="mt-8">
-              <h2 className="mb-10 text-xl font-bold text-slate-800 sm:text-2xl">
+              <h2 className="mb-6 text-xl font-bold text-slate-800 sm:text-2xl">
                 বাজারভিত্তিক আজকের দাম
               </h2>
 
               <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
-                <table className="w-full min-w-16.5 border-collapse text-left text-sm">
+                <table className="w-full min-w-[640px] border-collapse text-left text-sm">
                   <thead className="bg-slate-100 text-slate-700">
                     <tr>
                       <th className="whitespace-nowrap px-4 py-3 font-semibold">

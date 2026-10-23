@@ -1,12 +1,34 @@
 "use client";
 
+import { signUp } from "@/lib/auth-client";
+
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleSignUpForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const userInfo = Object.fromEntries(formData.entries());
+    console.log(userInfo);
+
+    //
+    const { data, error } = await signUp.email({
+      name: String(userInfo.name),
+      email: String(userInfo.email),
+      password: String(userInfo.password),
+      callbackURL: "/",
+    });
+    console.log(data, error);
+    if (data?.user) {
+      redirect("/");
+    }
+  };
 
   return (
     <main className="flex  items-start justify-center bg-[#f0f5f0] px-4 py-12">
@@ -19,7 +41,7 @@ export default function SignupForm() {
         </header>
 
         <section className="rounded-[14px] border border-[#dce5dc] bg-white/70 p-5 sm:p-6">
-          <form className="space-y-4">
+          <form onSubmit={handleSignUpForm} className="space-y-4">
             <div>
               <label htmlFor="name" className="mb-1 block text-sm">
                 আপনার নাম

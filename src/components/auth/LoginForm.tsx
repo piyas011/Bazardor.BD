@@ -1,6 +1,8 @@
 "use client";
 
+import { signIn } from "@/lib/auth-client";
 import Link from "next/link";
+
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
@@ -8,6 +10,21 @@ import { FcGoogle } from "react-icons/fc";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleSignInForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const userInfo = Object.fromEntries(formData.entries());
+    console.log(userInfo);
+
+    //
+    const { data, error } = await signIn.email({
+      email: String(userInfo.email),
+      password: String(userInfo.password),
+      callbackURL: "/",
+      rememberMe: true,
+    });
+    console.log(data, error);
+  };
   return (
     <main className="flex  items-start justify-center bg-[#f0f5f0] px-4 py-12">
       <div className="w-full max-w-97.5">
@@ -19,7 +36,7 @@ export default function LoginForm() {
         </header>
 
         <section className="rounded-[14px] border border-[#dce5dc] bg-white/70 p-5 sm:p-6">
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSignInForm}>
             <div>
               <label htmlFor="email" className="mb-1 block text-sm">
                 ইমেইল

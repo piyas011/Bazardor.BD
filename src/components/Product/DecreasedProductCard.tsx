@@ -4,7 +4,7 @@ import Link from "next/link";
 const DecreasedProductCard = ({ product }: { product: Product }) => {
   return (
     <Link href={`/products/${product.id}`}>
-      <article className="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-red-100 hover:shadow-md sm:p-5 ">
+      <article className="group rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-emerald-100 hover:shadow-md sm:p-5 ">
         {/* Product Info */}
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-2xl transition-colors group-hover:bg-green-100">
@@ -41,7 +41,7 @@ const DecreasedProductCard = ({ product }: { product: Product }) => {
           </div>
 
           {/* Price Change */}
-          <div className="flex shrink-0 items-center gap-1.5 rounded-lg bg-red-50 px-2.5 py-2 text-sm font-bold text-green-600">
+          <div className="flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-50 px-2.5 py-2 text-sm font-bold text-emerald-600">
             <span aria-hidden="true">▼</span>
             <span>{product.change?.pct}%</span>
           </div>
