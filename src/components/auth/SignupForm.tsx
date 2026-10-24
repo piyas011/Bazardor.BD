@@ -1,6 +1,6 @@
 "use client";
 
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -18,16 +18,31 @@ export default function SignupForm() {
     console.log(userInfo);
 
     //
-    const { data, error } = await signUp.email({
+    const { data } = await signUp.email({
       name: String(userInfo.name),
       email: String(userInfo.email),
       password: String(userInfo.password),
       callbackURL: "/",
     });
-    console.log(data, error);
+
+    // console.log(data, error);
     if (data?.user) {
       redirect("/");
     }
+  };
+  const handleGithubSignIn = async () => {
+    const data = await signIn.social({
+      provider: "github",
+    });
+  };
+
+  const handleGoogleSignIn = async () => {
+    const data = await signIn.social({
+      provider: "google",
+      additionalParams: {
+        prompt: "select_account",
+      },
+    });
   };
 
   return (
@@ -113,8 +128,9 @@ export default function SignupForm() {
 
           <div className="grid grid-cols-2 gap-2">
             <button
+              onClick={() => handleGoogleSignIn()}
               type="button"
-              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100"
+              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100 cursor-pointer"
             >
               <span className="font-bold text-blue-600">
                 {" "}
@@ -124,8 +140,9 @@ export default function SignupForm() {
             </button>
 
             <button
+              onClick={() => handleGithubSignIn()}
               type="button"
-              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100"
+              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100 cursor-pointer"
             >
               <span>
                 <FaGithub />

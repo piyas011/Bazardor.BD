@@ -1,20 +1,30 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { updateUser, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
+  Check,
   Mail,
   UserRound,
   ShieldCheck,
   CalendarDays,
   Pencil,
+  X,
 } from "lucide-react";
+import { useState } from "react";
 
 export default function ProfilePage() {
   const { data: session, isPending } = useSession();
   const user = session?.user;
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editedName, setEditedName] = useState("");
+  const [isSavingName, setIsSavingName] = useState(false);
+  const [nameFeedback, setNameFeedback] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   const getInitials = (name?: string | null) => {
     if (!name?.trim()) return "U";
@@ -23,6 +33,63 @@ export default function ProfilePage() {
     return words.length > 1
       ? `${words[0][0]}${words[words.length - 1][0]}`.toUpperCase()
       : words[0].slice(0, 2).toUpperCase();
+  };
+
+  const handleStartNameEdit = () => {
+    setEditedName(user?.name ?? "");
+    setNameFeedback(null);
+    setIsEditingName(true);
+  };
+
+  const handleCancelNameEdit = () => {
+    setIsEditingName(false);
+    setEditedName(user?.name ?? "");
+    setNameFeedback(null);
+  };
+
+  const handleNameSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const name = editedName.trim();
+    if (
+      name.length < 2 ||
+      name.length > 80 ||
+      /[\u0000-\u001F\u007F-\u009F]/u.test(name)
+    ) {
+      setNameFeedback({
+        type: "error",
+        message: "নাম ২ থেকে ৮০ অক্ষরের মধ্যে লিখুন।",
+      });
+      return;
+    }
+
+    setIsSavingName(true);
+    setNameFeedback(null);
+
+    try {
+      const { error } = await updateUser({ name });
+
+      if (error) {
+        setNameFeedback({
+          type: "error",
+          message: error.message || "নাম সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+        });
+        return;
+      }
+
+      setIsEditingName(false);
+      setNameFeedback({
+        type: "success",
+        message: "আপনার নাম সফলভাবে সংরক্ষণ করা হয়েছে।",
+      });
+    } catch (error) {
+      console.error("Failed to update profile name:", error);
+      setNameFeedback({
+        type: "error",
+        message: "নাম সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+      });
+    } finally {
+      setIsSavingName(false);
+    }
   };
 
   if (isPending) {
@@ -100,19 +167,93 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              <Link
-                href="/profile/edit"
-                className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-green-600 hover:bg-green-50 hover:text-green-700"
-              >
-                <Pencil size={16} />
-                প্রোফাইল এডিট
-              </Link>
+              {!isEditingName && (
+                <button
+                  type="button"
+                  onClick={handleStartNameEdit}
+                  className="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-green-600 hover:bg-green-50 hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600"
+                >
+                  <Pencil size={16} />
+                  নাম সম্পাদনা
+                </button>
+              )}
             </div>
 
             <div className="mt-5">
-              <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                {user.name || "ব্যবহারকারী"}
-              </h2>
+              {isEditingName ? (
+                <form
+                  onSubmit={handleNameSubmit}
+                  className="max-w-xl"
+                  aria-label="প্রোফাইলের নাম সম্পাদনা"
+                >
+                  <label
+                    htmlFor="profile-name"
+                    className="mb-2 block text-sm font-medium text-gray-700"
+                  >
+                    আপনার নাম
+                  </label>
+                  <input
+                    id="profile-name"
+                    name="name"
+                    type="text"
+                    value={editedName}
+                    onChange={(event) => setEditedName(event.target.value)}
+                    minLength={2}
+                    maxLength={80}
+                    required
+                    autoComplete="name"
+                    disabled={isSavingName}
+                    aria-describedby="profile-name-help"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-base font-semibold text-gray-900 outline-none transition focus:border-green-600 focus:ring-2 focus:ring-green-100 disabled:bg-gray-100"
+                  />
+                  <p id="profile-name-help" className="mt-1 text-xs text-gray-500">
+                    নাম ২ থেকে ৮০ অক্ষরের মধ্যে হতে হবে।
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button
+                      type="submit"
+                      disabled={isSavingName}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isSavingName ? (
+                        <span
+                          aria-hidden="true"
+                          className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                        />
+                      ) : (
+                        <Check size={16} />
+                      )}
+                      {isSavingName ? "সংরক্ষণ হচ্ছে..." : "Save Changes"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelNameEdit}
+                      disabled={isSavingName}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <X size={16} />
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                  {user.name || "ব্যবহারকারী"}
+                </h2>
+              )}
+              {nameFeedback && (
+                <p
+                  role="status"
+                  aria-live="polite"
+                  className={`mt-2 text-sm ${
+                    nameFeedback.type === "success"
+                      ? "text-green-700"
+                      : "text-red-600"
+                  }`}
+                >
+                  {nameFeedback.message}
+                </p>
+              )}
               <p className="mt-1 break-all text-sm text-gray-500">
                 {user.email}
               </p>

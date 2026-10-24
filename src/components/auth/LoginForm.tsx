@@ -25,6 +25,22 @@ export default function LoginForm() {
     });
     console.log(data, error);
   };
+
+  const handleGithubSignIn = async () => {
+    const data = await signIn.social({
+      provider: "github",
+    });
+  };
+
+  const handleGoogleSignIn = async () => {
+    const data = await signIn.social({
+      provider: "google",
+      additionalParams: {
+        prompt: "select_account",
+      },
+    });
+  };
+
   return (
     <main className="flex  items-start justify-center bg-[#f0f5f0] px-4 py-12">
       <div className="w-full max-w-97.5">
@@ -101,8 +117,9 @@ export default function LoginForm() {
 
           <div className="grid grid-cols-2 gap-2">
             <button
+              onClick={() => handleGoogleSignIn()}
               type="button"
-              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100"
+              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100 cursor-pointer"
             >
               <span className="font-bold text-blue-600">
                 <FcGoogle />
@@ -111,8 +128,9 @@ export default function LoginForm() {
             </button>
 
             <button
+              onClick={() => handleGithubSignIn()}
               type="button"
-              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100"
+              className="flex h-9 items-center justify-center gap-2 rounded-md border border-slate-800 text-xs font-medium hover:bg-slate-100 cursor-pointer"
             >
               <span>
                 <FaGithub />
